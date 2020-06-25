@@ -23,21 +23,19 @@ class MainActivity : AppCompatActivity() {
         val textip=findViewById<TextView>(R.id.textIp)
         val wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
         val fab=findViewById<FloatingActionButton>(R.id.fab)
-
-
+        val ipAddress: String = Formatter.formatIpAddress(wifiManager.connectionInfo.ipAddress)
         wifiManager.setWifiEnabled(true)
-        if(wifiManager.connectionInfo.networkId!=-1)
+        if((wifiManager.connectionInfo.networkId!=-1) && (ipAddress!="0.0.0.0"))
         {
             fab.visibility=View.GONE
-            Toast.makeText(this, "Wifi Enabled & Connected", Toast.LENGTH_SHORT).show()
-            val ipAddress: String = Formatter.formatIpAddress(wifiManager.connectionInfo.ipAddress)
-            textip.setText("Current Wi-Fi IP Address is:- "+ipAddress)
+            Toast.makeText(this, "Wi-fi Enabled & Connected", Toast.LENGTH_SHORT).show()
+            textip.setText("Current Wi-Fi IP Address is:- $ipAddress")
 
         }
         else
         {
-            textip.setText("Not Connected To Wi-fi \nClick on Below Refresh Button \nto Restart App")
-            fab.visibility=View.VISIBLE
+            textip.setText("Not Connected To Wi-fi \nClick on Refresh Button \nto Restart App")
+            fab.setVisibility(View.VISIBLE)
             fab.setOnClickListener {
                 val i = baseContext.packageManager
                     .getLaunchIntentForPackage(baseContext.packageName)
