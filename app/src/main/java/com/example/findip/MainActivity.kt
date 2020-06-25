@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         else
         {
             textip.setText("Not Connected To Wi-fi \nClick on Below Refresh Button \nto Restart App")
-            fab.visibility=View.VISIBLE
+            fab.setVisibility(View.VISIBLE)
             fab.setOnClickListener {
                 val i = baseContext.packageManager
                     .getLaunchIntentForPackage(baseContext.packageName)
